@@ -81,6 +81,21 @@ svg.append("g")
     .attr("transform","translate(0," + height + ")")
     .call(d3.axisBottom(x));
 
+svg.append("text")
+    .attr("class","x label")
+    .attr("text-anchor", "middle")
+    .attr("x",width/2)
+    .attr("y", height-6)
+    .text("Spin echo length (nm)")
+
+svg.append("text")
+    .attr("class","y label")
+    .attr("text-anchor", "middle")
+    .attr("x",-height/2)
+    .attr("y", 15)
+    .attr("transform","rotate(-90)")
+    .text("Polarisation")
+
 svg.append("g")
     .call(d3.axisLeft(y))
 
