@@ -74,7 +74,7 @@ var svg = d3.select("#plot")
     .attr("transform",
           "translate("+margin.left+","+margin.top+")")
 
-x.domain([0, 5])
+x.domain([0, 10])
 y.domain([0, 1])
 
 svg.append("g")
@@ -88,8 +88,13 @@ var valueline = d3.line()
     .x(function(d){return x(d[0]);})
     .y(function(d){return y(d[1]);});
 
+var graphx = []
+for(i=0;i<10;i += 0.1) {
+    graphx.push(i)
+}
+
 svg.append("path")
-    .data([[[0, 1],[1,1],[2,1],[3,1],[4,1],[5,1]]])
+    .data([graphx.map(function(i){return [i,1]})])
     .attr("class", "line")
     .attr("d", valueline);
 
@@ -106,18 +111,16 @@ function update_values(){
 
 
     var value = d3.select("#results").data()[0]
-    var simulation = []
     var wave = value.wavelength
 
-    for(i=0;i<6;i++) {
-        value.wavelength=i;
-        simulation.push([i,Math.exp(-total_scattering(value))]);
-    }
+    d3.select(".line")
+        .data([graphx.map(function(d){
+            value.wavelength = d;
+            return [d, Math.exp(-total_scattering(value))];
+        })])
 
     value.wavelength = wave
 
-    d3.select(".line")
-        .data([simulation])
     d3.select(".line")
         .attr("d",valueline);
 }
