@@ -122,6 +122,8 @@ function update_values(){
     value.wavelength = wave
 
     d3.select(".line")
+        .transition()
+        .duration(1500)
         .attr("d",valueline);
 }
 
