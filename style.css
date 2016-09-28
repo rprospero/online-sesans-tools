@@ -2,6 +2,9 @@
     #labels {
         display: table;
     }
+    #results {
+        display: table;
+    }
     .value {
         display: table-row;
     }
