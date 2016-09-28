@@ -58,3 +58,46 @@ make_label("#concentration",
 make_label("#xsi",
             function(new_value) {
                 return function(d) { d.xsi = new_value * 10; return d;}});
+
+//Line Chart
+
+var margin = {top: 20, right: 20, bottom: 30, left: 50}
+var width = 640 - margin.left - margin.right;
+var height = 480 - margin.top - margin.bottom;
+
+var x = d3.scaleLinear().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+
+var xAxis = d3.axisBottom()
+    .scale(x);
+
+var yAxis = d3.axisLeft()
+    .scale(y);
+
+var line = d3.line()
+    .x(function(d) {return x(d[0]);})
+    .y(function(d) {return x(d[1]);});
+
+var svg = d3.select("#plot")
+    .append("g")
+    .attr("transform",
+          "translate("+margin.left+","+margin.top+")")
+
+x.domain([0, 5])
+y.domain([0, 30])
+
+svg.append("g")
+    .attr("transform","translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+svg.append("g")
+    .call(d3.axisLeft(y))
+
+var valueline = d3.line()
+    .x(function(d){return x(d[0]);})
+    .y(function(d){return y(d[1]);});
+
+svg.append("path")
+    .data([[[0, 0],[1,1],[2,4],[3,9],[4,16],[5,25]]])
+    .attr("class", "line")
+    .attr("d", valueline);
