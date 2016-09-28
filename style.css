@@ -1,0 +1,17 @@
+@media(min-width: 450px) {
+    #labels {
+        display: table;
+        color: red;
+    }
+    .value {
+        display: table-row;
+    }
+
+    label {
+        display: table-cell;
+    }
+
+    input {
+        display: table-cell;
+    }
+}
