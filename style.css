@@ -4,6 +4,7 @@
     }
     #results {
         display: table;
+        border-spacing:5px 0px;
     }
     .value {
         display: table-row;
@@ -11,6 +12,7 @@
 
     label {
         display: table-cell;
+        font-weight: bold;
     }
 
     input {
