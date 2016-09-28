@@ -74,7 +74,7 @@ var svg = d3.select("#plot")
     .attr("transform",
           "translate("+margin.left+","+margin.top+")")
 
-x.domain([0, 1000])
+x.domain([0, 10])
 y.domain([0, 1])
 
 svg.append("g")
@@ -86,7 +86,7 @@ svg.append("text")
     .attr("text-anchor", "middle")
     .attr("x",width/2)
     .attr("y", height-6)
-    .text("Spin echo length (nm)")
+    .text("Wavelength (Å)")
 
 svg.append("text")
     .attr("class","y label")
@@ -131,7 +131,7 @@ function update_values(){
     d3.select(".line")
         .data([graphx.map(function(d){
             value.wavelength = d;
-            return [d*d*10, Math.exp(-total_scattering(value))];
+            return [d, Math.exp(-total_scattering(value))];
         })])
 
     value.wavelength = wave
