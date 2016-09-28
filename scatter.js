@@ -11,6 +11,21 @@ function update_label(f) {
             var new_value = +this.value;
             d3.select("#results")
                 .datum(f(new_value));
+
+            var value = d3.select("#results").data()[0]
+            var simulation = []
+            var wave = value.wavelength
+
+            for(i=0;i<6;i++) {
+                value.wavelength=i;
+                simulation.push([i,Math.exp(-total_scattering(value))]);
+            }
+
+            value.wavelength = wave
+
+            d3.select(".line")
+                .data([simulation])
+
             update_values();
         }
         d3.select(this).style("background-color",style)};};
@@ -29,8 +44,6 @@ var def = {wavelength: +document.getElementById("wavelength").value,
 
 d3.select("#results")
     .data([def]);
-
-update_values();
 
 make_label("#wavelength",
             function(new_value) {
@@ -76,7 +89,7 @@ var svg = d3.select("#plot")
           "translate("+margin.left+","+margin.top+")")
 
 x.domain([0, 5])
-y.domain([0, 30])
+y.domain([0, 1])
 
 svg.append("g")
     .attr("transform","translate(0," + height + ")")
@@ -86,7 +99,7 @@ svg.append("g")
     .call(d3.axisLeft(y))
 
 var valueline = d3.line()
-    .x(function(d){alert(d); return x(d[0]);})
+    .x(function(d){return x(d[0]);})
     .y(function(d){return y(d[1]);});
 
 svg.append("path")
@@ -104,6 +117,7 @@ function update_values(){
         .select("#polarisation")
         .text(function(x) {return Math.exp(-total_scattering(x));});
     d3.select(".line")
-        .data([[[0, 0],[1,1],[2,2],[3,3],[4,4],[5,5]]])
         .attr("d",valueline);
 }
+
+update_values()
