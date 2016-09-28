@@ -3,6 +3,14 @@ function total_scattering(value) {
     return value.wavelength * value.wavelength * value.thickness * delta * delta * value.concentration * (1-value.concentration) * value.xsi;
 };
 
+function update_values(){
+    d3.select("#results")
+        .select("#total_scattering")
+        .text(total_scattering);
+    d3.select("#results")
+        .select("#polarisation")
+        .text(function(x) {return Math.exp(-total_scattering(x));});}
+
 function update_label(f) {
     return function(d, i) {
         var style = "white";
@@ -11,12 +19,8 @@ function update_label(f) {
             var new_value = +this.value;
             d3.select("#results")
                 .datum(f(new_value));
-            d3.select("#results")
-                .select("#total_scattering")
-                .text(total_scattering);
-            d3.select("#results")
-                .select("#polarisation")
-                .text(function(x) {return Math.exp(-total_scattering(x));});}
+            update_values();
+        }
         d3.select(this).style("background-color",style)};};
 
 function make_label(selector, f) {
@@ -33,6 +37,8 @@ var def = {wavelength: +document.getElementById("wavelength").value,
 
 d3.select("#results")
     .data([def]);
+
+update_values();
 
 make_label("#wavelength",
             function(new_value) {
