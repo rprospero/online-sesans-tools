@@ -38,13 +38,13 @@ make_label("#wavelength",
                 return function(d) { d.wavelength = new_value; return d;}});
 make_label("#thickness",
             function(new_value) {
-                return function(d) { d.thickness = new_value; return d;}});
+                return function(d) { d.thickness = new_value * 1e7; return d;}});
 make_label("#sample",
             function(new_value) {
-                return function(d) { d.sample = new_value; return d;}});
+                return function(d) { d.sample = new_value * 1e-6; return d;}});
 make_label("#solvent",
             function(new_value) {
-                return function(d) { d.solvent = new_value; return d;}});
+                return function(d) { d.solvent = new_value * 1e-6; return d;}});
 make_label("#xsi",
             function(new_value) {
-                return function(d) { d.xsi = new_value; return d;}});
+                return function(d) { d.xsi = new_value * 10; return d;}});
