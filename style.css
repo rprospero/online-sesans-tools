@@ -12,7 +12,6 @@
 
     label {
         display: table-cell;
-        font-weight: bold;
     }
 
     input {
@@ -20,6 +19,9 @@
     }
 }
 
+label {
+    font-weight: bold;
+}
 
 .line {
   fill: none;
