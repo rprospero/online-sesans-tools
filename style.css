@@ -1,7 +1,6 @@
 @media(min-width: 450px) {
     #labels {
         display: table;
-        color: red;
     }
     .value {
         display: table-row;
