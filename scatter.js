@@ -24,12 +24,12 @@ function make_label(selector, f) {
         .on("input change",
             update_label(f));};
 
-var def = {wavelength: 1,
-           thickness: 1e7,
-           sample: 1e-6,
-           solvent: 0,
-           concentration: 0.1,
-           xsi: 1000};
+var def = {wavelength: +document.getElementById("wavelength").value,
+           thickness: 1e7*(+document.getElementById("thickness").value),
+           sample: 1e-6*(+document.getElementById("sample").value),
+           solvent: 1e-6*(+document.getElementById("solvent").value),
+           concentration: 1e-2*(+document.getElementById("concentration").value),
+           xsi: 10*(+document.getElementById("xsi").value)};
 
 d3.select("#results")
     .data([def]);
