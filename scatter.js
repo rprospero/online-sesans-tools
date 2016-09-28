@@ -3,14 +3,6 @@ function total_scattering(value) {
     return value.wavelength * value.wavelength * value.thickness * delta * delta * value.concentration * (1-value.concentration) * value.xsi;
 };
 
-function update_values(){
-    d3.select("#results")
-        .select("#total_scattering")
-        .text(total_scattering);
-    d3.select("#results")
-        .select("#polarisation")
-        .text(function(x) {return Math.exp(-total_scattering(x));});}
-
 function update_label(f) {
     return function(d, i) {
         var style = "white";
@@ -94,10 +86,24 @@ svg.append("g")
     .call(d3.axisLeft(y))
 
 var valueline = d3.line()
-    .x(function(d){return x(d[0]);})
+    .x(function(d){alert(d); return x(d[0]);})
     .y(function(d){return y(d[1]);});
 
 svg.append("path")
     .data([[[0, 0],[1,1],[2,4],[3,9],[4,16],[5,25]]])
     .attr("class", "line")
     .attr("d", valueline);
+
+/// Uopdate Functions
+
+function update_values(){
+    d3.select("#results")
+        .select("#total_scattering")
+        .text(total_scattering);
+    d3.select("#results")
+        .select("#polarisation")
+        .text(function(x) {return Math.exp(-total_scattering(x));});
+    d3.select(".line")
+        .data([[[0, 0],[1,1],[2,2],[3,3],[4,4],[5,5]]])
+        .attr("d",valueline);
+}
