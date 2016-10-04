@@ -26,7 +26,8 @@ var def = {wavelength: +document.getElementById("wavelength").value,
            sample: 1e-6*(+document.getElementById("sample").value),
            solvent: 1e-6*(+document.getElementById("solvent").value),
            concentration: 1e-2*(+document.getElementById("concentration").value),
-           xsi: 10*(+document.getElementById("xsi").value)};
+           xsi: 10*(+document.getElementById("xsi").value),
+           tune: +document.getElementById("tune").value};
 
 d3.select("#results")
     .data([def]);
@@ -49,7 +50,9 @@ make_label("#concentration",
 make_label("#xsi",
             function(new_value) {
                 return function(d) { d.xsi = new_value * 10; return d;}});
-
+make_label("#tune",
+            function(new_value) {
+                return function(d) { d.tune = new_value; return d;}});
 //Line Chart
 
 var margin = {top: 20, right: 20, bottom: 30, left: 50}
@@ -88,6 +91,7 @@ function makePlot(selector,xaxis,xlabel,lineClass) {
               "translate("+margin.left+","+margin.top+")");
     svg.append("g")
         .attr("transform","translate(0,"+height+")")
+        .attr("id","xaxis-"+lineClass)
         .call(d3.axisBottom(xaxis));
     svg.append("text")
         .attr("class","x label")
@@ -133,6 +137,10 @@ function update_values(){
     var value = d3.select("#results").data()[0]
     var wave = value.wavelength
 
+    d3.select("#results")
+        .select("#spin_echo")
+        .text(function(x) {return x.wavelength*x.wavelength*x.tune;});
+
     d3.select(".wline")
         .data([graphx.map(function(d){
             value.wavelength = d;
@@ -142,7 +150,7 @@ function update_values(){
     d3.select(".sline")
         .data([graphx.map(function(d){
             value.wavelength = d;
-            return [d*d*10, Math.exp(-total_scattering(value))];
+            return [d*d*value.tune, Math.exp(-total_scattering(value))];
         })])
 
     value.wavelength = wave
@@ -152,10 +160,15 @@ function update_values(){
         .duration(1500)
         .attr("d",valueline(wx));
 
+    sx.domain([0,100*value.tune]);
     d3.select(".sline")
         .transition()
         .duration(1500)
         .attr("d",valueline(sx));
+    d3.select("#xaxis-sline")
+        .transition()
+        .duration(1500)
+        .call(d3.axisBottom(sx));
 }
 
 update_values()
