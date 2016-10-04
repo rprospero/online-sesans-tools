@@ -70,19 +70,11 @@ sx.domain([0,1000]);
 var y = d3.scaleLinear().range([height, 0]);
 y.domain([0,1]);
 
-var wxAxis = d3.axisBottom()
-    .scale(wx);
-
-var yAxis = d3.axisLeft()
-    .scale(y);
-
-var line = d3.line()
-    .x(function(d) {return x(d[0]);})
-    .y(function(d) {return y(d[1]);});
-
+d3.axisBottom().scale(wx);
+d3.axisLeft().scale(y);
 
 var graphx = [];
-for(i=0;i<10;i += 0.1) {
+for(var i=0;i<10;i += 0.1) {
     graphx.push(i);
 }
 
@@ -118,8 +110,8 @@ function makePlot(selector,xaxis,xlabel,lineClass) {
     return svg;
 }
 
-var wsvg = makePlot("#wplot",wx,"Wavelength (Å)","wline");
-var ssvg = makePlot("#splot",sx,"Spin Echo Length (nm)","sline");
+makePlot("#wplot",wx,"Wavelength (Å)","wline");
+makePlot("#splot",sx,"Spin Echo Length (nm)","sline");
 
 function valueline(xaxis) {
     return d3.line()
