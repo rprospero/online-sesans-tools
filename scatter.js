@@ -56,62 +56,69 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50}
 var width = 640 - margin.left - margin.right;
 var height = 480 - margin.top - margin.bottom;
 
-var x = d3.scaleLinear().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]);
+var wx = d3.scaleLinear().range([0, width]);
+wx.domain([0,10]);
+var sx = d3.scaleLinear().range([0, width]);
+sx.domain([0,1000]);
 
-var xAxis = d3.axisBottom()
-    .scale(x);
+var y = d3.scaleLinear().range([height, 0]);
+y.domain([0,1]);
+
+var wxAxis = d3.axisBottom()
+    .scale(wx);
 
 var yAxis = d3.axisLeft()
     .scale(y);
 
 var line = d3.line()
     .x(function(d) {return x(d[0]);})
-    .y(function(d) {return x(d[1]);});
+    .y(function(d) {return y(d[1]);});
 
-var svg = d3.select("#plot")
-    .append("g")
-    .attr("transform",
-          "translate("+margin.left+","+margin.top+")")
-
-x.domain([0, 10])
-y.domain([0, 1])
-
-svg.append("g")
-    .attr("transform","translate(0," + height + ")")
-    .call(d3.axisBottom(x));
-
-svg.append("text")
-    .attr("class","x label")
-    .attr("text-anchor", "middle")
-    .attr("x",width/2)
-    .attr("y", height-6)
-    .text("Wavelength (Å)")
-
-svg.append("text")
-    .attr("class","y label")
-    .attr("text-anchor", "middle")
-    .attr("x",-height/2)
-    .attr("y", 15)
-    .attr("transform","rotate(-90)")
-    .text("Polarisation")
-
-svg.append("g")
-    .call(d3.axisLeft(y))
-
-var valueline = d3.line()
-    .x(function(d){return x(d[0]);})
-    .y(function(d){return y(d[1]);});
 
 var graphx = []
 for(i=0;i<10;i += 0.1) {
     graphx.push(i)
 }
 
-svg.append("path")
-    .data([graphx.map(function(i){return [i,1]})])
-    .attr("class", "line")
-    .attr("d", valueline);
+
+function makePlot(selector,xaxis,xlabel,lineClass) {
+    var svg = d3.select(selector)
+        .append("g")
+        .attr("transform",
+              "translate("+margin.left+","+margin.top+")");
+    svg.append("g")
+        .attr("transform","translate(0,"+height+")")
+        .call(d3.axisBottom(xaxis));
+    svg.append("text")
+        .attr("class","x label")
+        .attr("text-anchor", "middle")
+        .attr("x", width/2)
+        .attr("y",height-6)
+        .text(xlabel)
+    svg.append("text")
+        .attr("class","y label")
+        .attr("text-anchor", "middle")
+        .attr("x",-height/2)
+        .attr("y", 15)
+        .attr("transform","rotate(-90)")
+        .text("Polarisation")
+    svg.append("g")
+        .call(d3.axisLeft(y))
+    svg.append("path")
+        .data([graphx.map(function(i){return [i,1]})])
+        .attr("class", lineClass)
+        .attr("d", valueline(xaxis));
+    return svg
+}
+
+var wsvg = makePlot("#wplot",wx,"Wavelength (Å)","wline");
+var ssvg = makePlot("#splot",sx,"Spin Echo Length (nm)","sline");
+
+function valueline(xaxis) {
+    return d3.line()
+            .x(function(d){return xaxis(d[0]);})
+            .y(function(d){return y(d[1]);});
+};
 
 /// Uopdate Functions
 
@@ -123,23 +130,32 @@ function update_values(){
         .select("#polarisation")
         .text(function(x) {return Math.exp(-total_scattering(x));});
 
-
-
     var value = d3.select("#results").data()[0]
     var wave = value.wavelength
 
-    d3.select(".line")
+    d3.select(".wline")
         .data([graphx.map(function(d){
             value.wavelength = d;
             return [d, Math.exp(-total_scattering(value))];
         })])
 
+    d3.select(".sline")
+        .data([graphx.map(function(d){
+            value.wavelength = d;
+            return [d*d*10, Math.exp(-total_scattering(value))];
+        })])
+
     value.wavelength = wave
 
-    d3.select(".line")
+    d3.select(".wline")
         .transition()
         .duration(1500)
-        .attr("d",valueline);
+        .attr("d",valueline(wx));
+
+    d3.select(".sline")
+        .transition()
+        .duration(1500)
+        .attr("d",valueline(sx));
 }
 
 update_values()

@@ -23,7 +23,13 @@ label {
     font-weight: bold;
 }
 
-.line {
+.wline {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.sline {
   fill: none;
   stroke: steelblue;
   stroke-width: 2px;
