@@ -158,16 +158,19 @@ function update_values(){
     d3.select(".wline")
         .transition()
         .duration(1500)
+        .ease(d3.easeCubic)
         .attr("d",valueline(wx));
 
     sx.domain([0,100*value.tune]);
     d3.select(".sline")
         .transition()
         .duration(1500)
+        .ease(d3.easeCubic)
         .attr("d",valueline(sx));
     d3.select("#xaxis-sline")
         .transition()
         .duration(1500)
+        .ease(d3.easeCubic)
         .call(d3.axisBottom(sx));
 }
 
