@@ -106,7 +106,7 @@ function makePlot(selector,xaxis,xlabel,lineClass) {
         .call(d3.axisLeft(y))
     svg.append("path")
         .data([graphx.map(function(i){return [i,1]})])
-        .attr("class", lineClass)
+        .attr("class", "line " + lineClass)
         .attr("d", valueline(xaxis));
     return svg
 }
