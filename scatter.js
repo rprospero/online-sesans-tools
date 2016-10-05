@@ -1,3 +1,5 @@
+/* globals document,d3 */
+
 function sphere_form_factor(z,R) {
     var norms = Math.pow(z/2/R,2);
     if(norms >= 1) {return 0;}
