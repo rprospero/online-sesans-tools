@@ -1,3 +1,11 @@
+function sphere_form_factor(z,R) {
+    var norms = Math.pow(z/2/R,2);
+    if(norms >= 1) {return 0;}
+    if(norms <= 0) {return 1;}
+    var result = Math.sqrt(1-norms)*(1+0.5*norms)+2*norms*Math.pow(1-z/4/R,2)*Math.log(z/R/(2+Math.sqrt(4-Math.pow(z/R,2))));
+    return result;
+}
+
 function total_scattering(value) {
     var delta = value.sample-value.solvent;
     return value.wavelength * value.wavelength * value.thickness * delta * delta * value.concentration * (1-value.concentration) * value.xsi;
@@ -139,13 +147,17 @@ function update_values(){
     d3.select(".wline")
         .data([graphx.map(function(d){
             value.wavelength = d;
-            return [d, Math.exp(-total_scattering(value))];
+            var z = d*d*value.tune;
+            var G = sphere_form_factor(z, value.xsi/1.5);
+            return [d, Math.exp((G-1)*total_scattering(value))];
         })]);
 
     d3.select(".sline")
         .data([graphx.map(function(d){
             value.wavelength = d;
-            return [d*d*value.tune, Math.exp(-total_scattering(value))];
+            var z = d*d*value.tune;
+            var G = sphere_form_factor(z, value.xsi/1.5);
+            return [z, Math.exp((G-1)*total_scattering(value))];
         })]);
 
     value.wavelength = wave;
