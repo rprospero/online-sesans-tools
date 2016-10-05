@@ -8,7 +8,7 @@ function sphere_form_factor(z,R) {
 
 function total_scattering(value) {
     var delta = value.sample-value.solvent;
-    return value.wavelength * value.wavelength * value.thickness * delta * delta * value.concentration * (1-value.concentration) * value.xsi;
+    return value.wavelength * value.wavelength * value.thickness * delta * delta * value.concentration * (1-value.concentration) * (1.5 - 1.6*value.concentration) * value.radius;
 }
 
 function update_label(f) {
@@ -37,7 +37,7 @@ var def = {wavelength: +document.getElementById("wavelength").value,
            sample: 1e-6*(+document.getElementById("sample").value),
            solvent: 1e-6*(+document.getElementById("solvent").value),
            concentration: 1e-2*(+document.getElementById("concentration").value),
-           xsi: 10*(+document.getElementById("xsi").value),
+           radius: 10*(+document.getElementById("radius").value),
            tune: +document.getElementById("tune").value};
 
 d3.select("#results")
@@ -58,9 +58,9 @@ make_label("#solvent",
 make_label("#concentration",
             function(new_value) {
                 return function(d) { d.concentration = new_value * 1e-2; return d;};});
-make_label("#xsi",
+make_label("#radius",
             function(new_value) {
-                return function(d) { d.xsi = new_value * 10; return d;};});
+                return function(d) { d.radius = new_value * 10; return d;};});
 make_label("#tune",
             function(new_value) {
                 return function(d) { d.tune = new_value; return d;};});
@@ -148,7 +148,7 @@ function update_values(){
         .data([graphx.map(function(d){
             value.wavelength = d;
             var z = d*d*value.tune;
-            var G = sphere_form_factor(z, value.xsi/1.5);
+            var G = sphere_form_factor(z, value.radius);
             return [d, Math.exp((G-1)*total_scattering(value))];
         })]);
 
@@ -156,7 +156,7 @@ function update_values(){
         .data([graphx.map(function(d){
             value.wavelength = d;
             var z = d*d*value.tune;
-            var G = sphere_form_factor(z, value.xsi/1.5);
+            var G = sphere_form_factor(z, value.radius);
             return [z, Math.exp((G-1)*total_scattering(value))];
         })]);
 
