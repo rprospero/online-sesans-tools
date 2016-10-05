@@ -148,7 +148,7 @@ function update_values(){
         .data([graphx.map(function(d){
             value.wavelength = d;
             var z = d*d*value.tune;
-            var G = sphere_form_factor(z, value.radius);
+            var G = sphere_form_factor(10*z, value.radius);
             return [d, Math.exp((G-1)*total_scattering(value))];
         })]);
 
@@ -156,7 +156,7 @@ function update_values(){
         .data([graphx.map(function(d){
             value.wavelength = d;
             var z = d*d*value.tune;
-            var G = sphere_form_factor(z, value.radius);
+            var G = sphere_form_factor(10*z, value.radius);
             return [z, Math.exp((G-1)*total_scattering(value))];
         })]);
 
