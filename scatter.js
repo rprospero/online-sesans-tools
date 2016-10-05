@@ -1,5 +1,6 @@
 /* globals document,d3 */
 
+//Find G(z) for a dilute sphere
 function sphere_form_factor(z,R) {
     var norms = Math.pow(z/2/R,2);
     if(norms >= 1) {return 0;}
@@ -8,11 +9,13 @@ function sphere_form_factor(z,R) {
     return result;
 }
 
+//Calculate the total scattering for a solution of spheres
 function total_scattering(value) {
     var delta = value.sample-value.solvent;
     return value.wavelength * value.wavelength * value.thickness * delta * delta * value.concentration * (1-value.concentration) * (1.5 - 1.6*value.concentration) * value.radius;
 }
 
+//Update the model and the input based on the current value
 function update_label(f) {
     return function(d, i) {
         var style = "white";
@@ -28,12 +31,14 @@ function update_label(f) {
     };
 }
 
+//Make the label given by the selector perform the action given in the function
 function make_label(selector, f) {
     d3.select(selector)
         .on("input change",
             update_label(f));
 }
 
+//The default value for the model
 var def = {wavelength: +document.getElementById("wavelength").value,
            thickness: 1e7*(+document.getElementById("thickness").value),
            sample: 1e-6*(+document.getElementById("sample").value),
@@ -88,7 +93,9 @@ for(var i=0;i<10;i += 0.1) {
     graphx.push(i);
 }
 
-
+//Given the location of an SVG element, assign it the given scale for
+// the x axis, label that axis, and assign a name to the line drawn on
+// the plot
 function makePlot(selector,xaxis,xlabel,lineClass) {
     var svg = d3.select(selector)
         .append("g")
@@ -123,14 +130,14 @@ function makePlot(selector,xaxis,xlabel,lineClass) {
 makePlot("#wplot",wx,"Wavelength (Å)","wline");
 makePlot("#splot",sx,"Spin Echo Length (nm)","sline");
 
+//Create a line with a given x-axis
 function valueline(xaxis) {
     return d3.line()
             .x(function(d){return xaxis(d[0]);})
             .y(function(d){return y(d[1]);});
 }
 
-/// Update Functions
-
+// Update all the results to the latest values in the data model
 function update_values(){
     d3.select("#results")
         .select("#total_scattering")
