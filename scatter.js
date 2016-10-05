@@ -2,7 +2,7 @@ function sphere_form_factor(z,R) {
     var norms = Math.pow(z/2/R,2);
     if(norms >= 1) {return 0;}
     if(norms <= 0) {return 1;}
-    var result = Math.sqrt(1-norms)*(1+0.5*norms)+2*norms*Math.pow(1-z/4/R,2)*Math.log(z/R/(2+Math.sqrt(4-Math.pow(z/R,2))));
+    var result = Math.sqrt(1-norms)*(1+0.5*norms)+2*norms*(1-Math.pow(z/4/R,2))*Math.log(z/R/(2+Math.sqrt(4-Math.pow(z/R,2))));
     return result;
 }
 
