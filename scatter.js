@@ -129,7 +129,7 @@ function valueline(xaxis) {
             .y(function(d){return y(d[1]);});
 }
 
-/// Uopdate Functions
+/// Update Functions
 
 function update_values(){
     d3.select("#results")
