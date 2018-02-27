@@ -37,11 +37,6 @@ svg {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
     }
-
-    svg {
-	width: 640px;
-	height: 480px;
-    }
 }
 
 @media(min-width: 1280px) {

@@ -98,6 +98,7 @@ for(var i=0;i<10;i += 0.1) {
 // the plot
 function makePlot(selector,xaxis,xlabel,lineClass) {
     var svg = d3.select(selector)
+	.attr("viewBox", "0 0 640 480")
         .append("g")
         .attr("transform",
               "translate("+margin.left+","+margin.top+")");
