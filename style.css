@@ -1,6 +1,11 @@
 #results {
-    display: table;
-    border-spacing:5px 0px;
+    display: contents;
+}
+
+.spacer {
+    color: red;
+    grid-column: 1 / -1;
+    text-align: center;
 }
 
 #labels {
@@ -26,7 +31,6 @@ svg {
 	grid-template-columns: 1fr 1fr;
     }
 
-
     aside {
 	grid-column: span 2;
     }
@@ -43,6 +47,10 @@ svg {
     svg {
 	width: 48vw;
 	height: 36vw;
+    }
+    #labels {
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
     }
 }
 
