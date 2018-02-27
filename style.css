@@ -15,6 +15,11 @@ label {
     font-weight: bold;
 }
 
+svg {
+    width: 100vw;
+    height: 75vw;
+}
+
 @media(min-width: 500px) {
     #labels {
 	display: grid;
@@ -31,6 +36,18 @@ label {
     #labels {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    svg {
+	width: 640px;
+	height: 480px;
+    }
+}
+
+@media(min-width: 1280px) {
+    svg {
+	width: 48vw;
+	height: 36vw;
     }
 }
 
