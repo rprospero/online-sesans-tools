@@ -1,26 +1,37 @@
-@media(min-width: 450px) {
-    #labels {
-        display: table;
-    }
-    #results {
-        display: table;
-        border-spacing:5px 0px;
-    }
-    .value {
-        display: table-row;
-    }
+#results {
+    display: table;
+    border-spacing:5px 0px;
+}
 
-    label {
-        display: table-cell;
-    }
+#labels {
+    display: grid;
+}
 
-    input {
-        display: table-cell;
-    }
+.value {
+    display: contents;
 }
 
 label {
     font-weight: bold;
+}
+
+@media(min-width: 500px) {
+    #labels {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+    }
+
+
+    aside {
+	grid-column: span 2;
+    }
+}
+
+@media(min-width: 800px) {
+    #labels {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 }
 
 .line {
