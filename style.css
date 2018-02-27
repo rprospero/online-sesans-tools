@@ -3,7 +3,8 @@
 }
 
 .spacer {
-    color: red;
+    font-size: x-large;
+    font-weight: bold;
     grid-column: 1 / -1;
     text-align: center;
 }
