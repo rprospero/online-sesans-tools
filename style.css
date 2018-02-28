@@ -26,11 +26,18 @@ label {
     grid-area: n;
 }
 
+label:after {
+    position: absolute;
+    right: 1em;
+    content: "+";
+    transition: 900ms ease all
+}
+
 aside {
     grid-area: h;
     overflow: hidden;
     max-height: 0;
-    transition: max-height 1s;
+    transition: 900ms ease all
 }
 input {
     grid-area: v;
@@ -40,8 +47,12 @@ input[type=checkbox] {
     display: none;
 }
 input:checked ~ aside {
-    max-height: 100vh;
-    transition: max-height 1s;
+    max-height: 90px;
+    transition: 900ms ease all;
+}
+input:checked ~ label:after {
+    transform: rotate(45deg);
+    transition: 900ms ease all
 }
 
 svg {
@@ -67,6 +78,9 @@ svg {
     }
     label {
 	grid-area: auto;
+    }
+    label:after {
+	display: none;
     }
     aside {
 	grid-column: span 2;
