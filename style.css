@@ -33,6 +33,10 @@ label:after {
     transition: 900ms ease all
 }
 
+#results > .value > label:after {
+    display: none;
+}
+
 aside {
     grid-area: h;
     overflow: hidden;
