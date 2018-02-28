@@ -79,9 +79,9 @@ var width = rect.width - margin.left - margin.right;
 var height = rect.height - margin.top - margin.bottom;
 
 var wx = d3.scaleLinear().range([0, width]);
-wx.domain([0,10]);
+wx.domain([0,12]);
 var sx = d3.scaleLinear().range([0, width]);
-sx.domain([0,1000]);
+sx.domain([0,1440]);
 
 var wy = d3.scaleLinear().range([height, 0]);
 wy.domain([0,1]);
@@ -105,7 +105,7 @@ window.addEventListener("resize", resize);
 // d3.axisLeft().scale(y);
 
 var graphx = [];
-for(var i=0.1;i<10;i += 0.1) {
+for(var i=0.1;i<12;i += 0.1) {
     graphx.push(i);
 }
 
@@ -202,7 +202,7 @@ function update_values(){
         .ease(d3.easeCubic)
         .attr("d",valueline(wx, wy));
 
-    sx.domain([0,100*value.tune]);
+    sx.domain([0,144*value.tune]);
     d3.select(".sline")
         .transition()
         .duration(1500)
