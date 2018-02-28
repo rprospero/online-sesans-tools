@@ -14,11 +14,22 @@
 }
 
 .value {
-    display: contents;
+    display: grid;
+    grid-template-areas:
+      "n"
+      "h"
+      "v";
 }
 
 label {
     font-weight: bold;
+    grid-area: n;
+}
+aside {
+    grid-area: h;
+}
+input {
+    grid-area: v;
 }
 
 svg {
@@ -30,13 +41,24 @@ svg {
 }
 
 @media(min-width: 500px) {
+    .value {
+	display: contents;
+    }
+
     #labels {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
     }
 
+    input {
+	grid-area: auto;
+    }
+    label {
+	grid-area: auto;
+    }
     aside {
 	grid-column: span 2;
+	grid-row: span 1;
     }
 }
 
