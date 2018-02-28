@@ -52,11 +52,6 @@ input:invalid {
     transition: 300ms ease all
 }
 
-input[type=number] { 
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-
 input[type=checkbox] {
     display: none;
 }
