@@ -73,9 +73,10 @@ make_label("#tune",
                 return function(d) { d.tune = new_value; return d;};});
 //Line Chart
 
+var rect = document.getElementById("wplot").getBoundingClientRect();
 var margin = {top: 20, right: 20, bottom: 30, left: 50};
-var width = 640 - margin.left - margin.right;
-var height = 480 - margin.top - margin.bottom;
+var width = rect.width - margin.left - margin.right;
+var height = rect.height - margin.top - margin.bottom;
 
 var wx = d3.scaleLinear().range([0, width]);
 wx.domain([0,10]);
@@ -84,6 +85,21 @@ sx.domain([0,1000]);
 
 var y = d3.scaleLinear().range([height, 0]);
 y.domain([0,1]);
+
+function resize(e) {
+    console.log("Resize");
+    console.log(e);
+    rect = document.getElementById("wplot").getBoundingClientRect();
+    console.log(rect);
+    width = rect.width - margin.left - margin.right;
+    height = rect.height - margin.top - margin.bottom;
+
+    wx.range([0, width]);
+    sx.range([0, width]);
+    y.range([height, 0]);
+    update_values();
+}
+window.addEventListener("resize", resize);
 
 d3.axisBottom().scale(wx);
 d3.axisLeft().scale(y);
@@ -98,7 +114,6 @@ for(var i=0;i<10;i += 0.1) {
 // the plot
 function makePlot(selector,xaxis,xlabel,lineClass) {
     var svg = d3.select(selector)
-	.attr("viewBox", "0 0 640 480")
         .append("g")
         .attr("transform",
               "translate("+margin.left+","+margin.top+")");
@@ -107,19 +122,20 @@ function makePlot(selector,xaxis,xlabel,lineClass) {
         .attr("id","xaxis-"+lineClass)
         .call(d3.axisBottom(xaxis));
     svg.append("text")
-        .attr("class","x label")
+        .attr("class","xlabel")
         .attr("text-anchor", "middle")
         .attr("x", width/2)
         .attr("y",height-6)
         .text(xlabel);
     svg.append("text")
-        .attr("class","y label")
+        .attr("class","ylabel")
         .attr("text-anchor", "middle")
         .attr("x",-height/2)
         .attr("y", 15)
         .attr("transform","rotate(-90)")
         .text("Polarisation");
     svg.append("g")
+	.attr("class", "yaxis")
         .call(d3.axisLeft(y));
     svg.append("path")
         .data([graphx.map(function(i){return [i,1];})])
@@ -188,7 +204,29 @@ function update_values(){
         .transition()
         .duration(1500)
         .ease(d3.easeCubic)
+        .attr("transform","translate(0,"+height+")")
         .call(d3.axisBottom(sx));
+    d3.select("#xaxis-wline")
+        .transition()
+        .duration(1500)
+        .ease(d3.easeCubic)
+        .attr("transform","translate(0,"+height+")")
+        .call(d3.axisBottom(wx));
+    d3.selectAll(".yaxis")
+        .transition()
+        .duration(1500)
+        .ease(d3.easeCubic)
+        .call(d3.axisLeft(y));
+    d3.selectAll(".xlabel")
+        .transition()
+        .duration(1500)
+        .attr("x", width/2)
+        .attr("y",height-6);
+    d3.selectAll(".ylabel")
+        .transition()
+        .duration(1500)
+        .attr("x",-height/2)
+        .attr("y", 15)
 }
 
 update_values();
