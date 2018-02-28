@@ -22,8 +22,11 @@ label {
 }
 
 svg {
-    width: 100vw;
-    height: 75vw;
+    width: 96vw;
+    height: 72vw;
+
+    max-height: 100vh;
+    max-width: 133.3vh;
 }
 
 @media(min-width: 500px) {
