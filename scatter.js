@@ -18,16 +18,13 @@ function total_scattering(value) {
 //Update the model and the input based on the current value
 function update_label(f) {
     return function(d, i) {
-        var style = "white";
-        if(isNaN(this.value) || this.value==="") {style="red";}
-        else {
+	if(this.validity.valid) {
             var new_value = +this.value;
             d3.select("#results")
                 .datum(f(new_value));
 
             update_values();
         }
-        d3.select(this).style("background-color",style);
     };
 }
 

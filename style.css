@@ -45,6 +45,16 @@ aside {
 }
 input {
     grid-area: v;
+    transition: 300ms ease all
+}
+input:invalid {
+    background-color: red;
+    transition: 300ms ease all
+}
+
+input[type=number] { 
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 input[type=checkbox] {
