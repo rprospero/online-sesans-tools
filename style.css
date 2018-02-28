@@ -2,8 +2,12 @@
     display: contents;
 }
 
+body {
+    font-size: 3vh;
+}
+
 .spacer {
-    font-size: x-large;
+    font-size: 6vh;
     font-weight: bold;
     grid-column: 1 / -1;
     text-align: center;
