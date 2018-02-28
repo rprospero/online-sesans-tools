@@ -169,6 +169,8 @@ function update_values(){
     d3.select("#results")
         .select("#spin_echo")
         .text(function(x) {return x.wavelength*x.wavelength*x.tune;});
+    d3.select(".spacer")
+	.text("Results at " + value.wavelength + " Å");
 
     d3.select(".wline")
         .data([graphx.map(function(d){
