@@ -83,36 +83,36 @@ wx.domain([0,10]);
 var sx = d3.scaleLinear().range([0, width]);
 sx.domain([0,1000]);
 
-var y = d3.scaleLinear().range([height, 0]);
-y.domain([0,1]);
+var wy = d3.scaleLinear().range([height, 0]);
+wy.domain([0,1]);
+var sy = d3.scaleLinear().range([height, 0]);
+sy.domain([-0.1, 0]);
 
 function resize(e) {
-    console.log("Resize");
-    console.log(e);
     rect = document.getElementById("wplot").getBoundingClientRect();
-    console.log(rect);
     width = rect.width - margin.left - margin.right;
     height = rect.height - margin.top - margin.bottom;
 
     wx.range([0, width]);
     sx.range([0, width]);
-    y.range([height, 0]);
+    wy.range([height, 0]);
+    sy.range([height, 0]);
     update_values();
 }
 window.addEventListener("resize", resize);
 
-d3.axisBottom().scale(wx);
-d3.axisLeft().scale(y);
+// d3.axisBottom().scale(wx);
+// d3.axisLeft().scale(y);
 
 var graphx = [];
-for(var i=0;i<10;i += 0.1) {
+for(var i=0.1;i<10;i += 0.1) {
     graphx.push(i);
 }
 
 //Given the location of an SVG element, assign it the given scale for
 // the x axis, label that axis, and assign a name to the line drawn on
 // the plot
-function makePlot(selector,xaxis,xlabel,lineClass) {
+function makePlot(selector,xaxis,xlabel,yaxis,ylabel,lineClass) {
     var svg = d3.select(selector)
         .append("g")
         .attr("transform",
@@ -133,25 +133,25 @@ function makePlot(selector,xaxis,xlabel,lineClass) {
         .attr("x",-height/2)
         .attr("y", 15)
         .attr("transform","rotate(-90)")
-        .text("Polarisation");
+        .text(ylabel);
     svg.append("g")
 	.attr("class", "yaxis")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(yaxis));
     svg.append("path")
         .data([graphx.map(function(i){return [i,1];})])
         .attr("class", "line " + lineClass)
-        .attr("d", valueline(xaxis));
+        .attr("d", valueline(xaxis, yaxis));
     return svg;
 }
 
-makePlot("#wplot",wx,"Wavelength (Å)","wline");
-makePlot("#splot",sx,"Spin Echo Length (nm)","sline");
+makePlot("#wplot",wx,"Wavelength (Å)",wy,"Polarisation","wline");
+makePlot("#splot",sx,"Spin Echo Length (nm)",sy,"Sesans Signal", "sline");
 
 //Create a line with a given x-axis
-function valueline(xaxis) {
+function valueline(xaxis, yaxis) {
     return d3.line()
             .x(function(d){return xaxis(d[0]);})
-            .y(function(d){return y(d[1]);});
+            .y(function(d){return yaxis(d[1]);});
 }
 
 // Update all the results to the latest values in the data model
@@ -183,10 +183,16 @@ function update_values(){
     d3.select(".sline")
         .data([graphx.map(function(d){
             value.wavelength = d;
+	    if(d===0){return 0;}
             var z = d*d*value.tune;
             var G = sphere_form_factor(10*z, value.radius);
-            return [z, Math.exp((G-1)*total_scattering(value))];
+            return [z, (G-1)*total_scattering(value)/d/d];
         })]);
+
+    var ext = d3.min(d3.select(".sline").data()[0],
+		     x => x[1]);
+    var extent = [1.1 * ext, 0];
+    sy.domain(extent);
 
     value.wavelength = wave;
 
@@ -194,14 +200,14 @@ function update_values(){
         .transition()
         .duration(1500)
         .ease(d3.easeCubic)
-        .attr("d",valueline(wx));
+        .attr("d",valueline(wx, wy));
 
     sx.domain([0,100*value.tune]);
     d3.select(".sline")
         .transition()
         .duration(1500)
         .ease(d3.easeCubic)
-        .attr("d",valueline(sx));
+        .attr("d",valueline(sx, sy));
     d3.select("#xaxis-sline")
         .transition()
         .duration(1500)
@@ -214,11 +220,18 @@ function update_values(){
         .ease(d3.easeCubic)
         .attr("transform","translate(0,"+height+")")
         .call(d3.axisBottom(wx));
-    d3.selectAll(".yaxis")
+    d3.select("#wplot")
+	.selectAll(".yaxis")
         .transition()
         .duration(1500)
         .ease(d3.easeCubic)
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(wy));
+    d3.select("#splot")
+	.select(".yaxis")
+        .transition()
+        .duration(1500)
+        .ease(d3.easeCubic)
+        .call(d3.axisLeft(sy));
     d3.selectAll(".xlabel")
         .transition()
         .duration(1500)
@@ -228,7 +241,7 @@ function update_values(){
         .transition()
         .duration(1500)
         .attr("x",-height/2)
-        .attr("y", 15)
+        .attr("y", 15);
 }
 
 update_values();
