@@ -45,7 +45,7 @@ input:invalid {
 input[type=checkbox] {
     display: none;
 }
-input:checked ~ aside {
+input:checked + label + input + aside {
     max-height: 7.5em;
     transition: 900ms ease all;
 }
