@@ -1,9 +1,9 @@
 body {
-    font-size: min(3vh, 3vw);
+    font-size: calc(12pt + 0.25vw + 0.25vh);
 }
 
 .spacer {
-    font-size: min(6vh, 6vw);
+    font-size: calc(24pt + 0.5vw + 0.5vh);
     font-weight: bold;
     grid-column: 1 / -1;
     text-align: center;
