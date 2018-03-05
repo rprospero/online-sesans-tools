@@ -10,7 +10,7 @@
 
   </head>
   <body>
-    <div id="labels">
+    <div id="labels" class="container">
       <input type="checkbox" id="help-wavelength">
       <label for="help-wavelength">
 	Wavelength (Å)
@@ -57,28 +57,28 @@
       </label>
       <input id="tune" value="10.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
       <aside> The tuning constant of the spin echo instrument.  This value, times the wavelength squared in Angstroms, gives the spin echo length in nanometers.</aside>
-      <div class="spacer">
-	Results
+    </div>
+    <div class="spacer">
+      Results
+    </div>
+    <div id="results" class="container">
+      <label>
+	Spin Echo Length (nm)
+      </label>
+      <div id="spin_echo" class="computed">
+	Please enter Values
       </div>
-      <div id="results">
-	<label>
-	  Spin Echo Length (nm)
-	</label>
-	<div id="spin_echo">
-	  Please enter Values
-	</div>
-	<label>
-	  Total Scattering
-	</label>
-	<div id="total_scattering">
-	  Please enter Values
-	</div>
-	<label>
-	  Polarisation
-	</label>
-	<div id="polarisation">
-	  Please enter values
-	</div>
+      <label>
+	Total Scattering
+      </label>
+      <div id="total_scattering" class="computed">
+	Please enter Values
+      </div>
+      <label>
+	Polarisation
+      </label>
+      <div id="polarisation" class="computed">
+	Please enter values
       </div>
     </div>
 </div>
