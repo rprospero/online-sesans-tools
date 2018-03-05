@@ -60,7 +60,7 @@ input[type=checkbox] {
     display: none;
 }
 input:checked ~ aside {
-    max-height: 90px;
+    max-height: 7.5em;
     transition: 900ms ease all;
 }
 input:checked ~ label:after {
