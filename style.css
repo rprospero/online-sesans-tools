@@ -3,11 +3,11 @@
 }
 
 body {
-    font-size: 3vh;
+    font-size: min(3vh, 3vw);
 }
 
 .spacer {
-    font-size: 6vh;
+    font-size: min(6vh, 6vw);
     font-weight: bold;
     grid-column: 1 / -1;
     text-align: center;
@@ -73,7 +73,6 @@ svg {
     height: 72vw;
 
     max-height: 100vh;
-    max-width: 133.3vh;
 }
 
 @media(min-width: 500px) {
@@ -110,13 +109,16 @@ svg {
 }
 
 @media(min-width: 1280px) {
-    svg {
-	width: 48vw;
-	height: 36vw;
-    }
     #labels {
 	display: grid;
 	grid-template-columns: repeat(8, 1fr);
+    }
+}
+
+@media(min-aspect-ratio: 3/2) {
+    svg {
+	width: 48vw;
+	height: 98vh;
     }
 }
 
