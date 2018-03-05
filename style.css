@@ -1,7 +1,3 @@
-#results {
-    display: contents;
-}
-
 body {
     font-size: min(3vh, 3vw);
 }
@@ -15,19 +11,11 @@ body {
 
 #labels {
     display: grid;
-}
-
-.value {
-    display: grid;
-    grid-template-areas:
-      "n"
-      "h"
-      "v";
+    grid-template-columns: 1fr;
 }
 
 label {
     font-weight: bold;
-    grid-area: n;
 }
 
 label:after {
@@ -37,18 +25,16 @@ label:after {
     transition: 900ms ease all
 }
 
-#results > .value > label:after {
+#results > label:after {
     display: none;
 }
 
 aside {
-    grid-area: h;
     overflow: hidden;
     max-height: 0;
     transition: 900ms ease all
 }
 input {
-    grid-area: v;
     transition: 300ms ease all
 }
 input:invalid {
@@ -76,10 +62,6 @@ svg {
 }
 
 @media(min-width: 500px) {
-    .value {
-	display: contents;
-    }
-
     #labels {
 	display: grid;
 	grid-template-columns: 1fr 1fr;

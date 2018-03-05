@@ -11,101 +11,82 @@
   </head>
   <body>
     <div id="labels">
-      <div class="value">
-	<input type="checkbox" id="help-wavelength">
-	<label for="help-wavelength">
-	  Wavelength (Å)
-	</label>
-	<input inputmode="numeric"  id="wavelength" value="9.0" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
-	<aside> A wavelength at which to extract numerical values.
+      <input type="checkbox" id="help-wavelength">
+      <label for="help-wavelength">
+	Wavelength (Å)
+      </label>
+      <input inputmode="numeric"  id="wavelength" value="9.0" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
+      <aside> A wavelength at which to extract numerical values.
 	This is not a physical aspect of the sample or instrument, but
 	just a convenience for retrieving numbers from this
 	program.</aside>
-      </div>
-      <div class="value">
-	<input type="checkbox" id="help-thickness">
-	<label for="help-thickness">
-	  Thickness (mm)
-	</label>
-	<input id="thickness" value="1.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
-	<aside> The thickness of the sample. </aside>
-      </div>
-      <div class="value">
-	<input type="checkbox" id="help-sample">
-	<label for="help-sample">
-	  Sample SLD (10⁻⁶ Å⁻²)
-	</label>
-	<input id="sample" value="1.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
-	<aside> Neutron scattering length density of the sample.</aside>
-      </div>
-      <div class="value">
-	<input type="checkbox" id="help-solvent">
-	<label for="help-solvent">
-	  Solvent SLD (10⁻⁶ Å⁻²)
-	</label>
-	<input id="solvent" value="0.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
-	<aside> Neutron scattering length density of the solvent.</aside>
-      </div>
-      <div class="value">
-	<input type="checkbox" id="help-vol">
-	<label for="help-vol">
-	  Volume Fraction (%)
-	</label>
-	<input id="concentration" value="10.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
-	<aside> Percentage of the sample which is not
+      <input type="checkbox" id="help-thickness">
+      <label for="help-thickness">
+	Thickness (mm)
+      </label>
+      <input id="thickness" value="1.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
+      <aside> The thickness of the sample. </aside>
+      <input type="checkbox" id="help-sample">
+      <label for="help-sample">
+	Sample SLD (10⁻⁶ Å⁻²)
+      </label>
+      <input id="sample" value="1.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
+      <aside> Neutron scattering length density of the sample.</aside>
+      <input type="checkbox" id="help-solvent">
+      <label for="help-solvent">
+	Solvent SLD (10⁻⁶ Å⁻²)
+      </label>
+      <input id="solvent" value="0.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
+      <aside> Neutron scattering length density of the solvent.</aside>
+      <input type="checkbox" id="help-vol">
+      <label for="help-vol">
+	Volume Fraction (%)
+      </label>
+      <input id="concentration" value="10.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
+      <aside> Percentage of the sample which is not
 	solvent. </aside>
-      </div>
-      <div class="value">
-	<input type="checkbox" id="help-radius">
-	<label for="help-radius">
-	  Radius (nm)
-	</label>
-	<input id="radius" value="100.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
-	<aside> Radius of the spheres in the solvent. </aside>
-      </div>
-      <div class="value">
-	<input type="checkbox" id="help-set">
-	<label for="help-set">
-	  Spin Echo Tune (nm Å⁻²)
-	</label>
-	<input id="tune" value="10.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
-	<aside> The tuning constant of the spin echo instrument.  This value, times the wavelength squared in Angstroms, gives the spin echo length in nanometers.</aside>
-      </div>
+      <input type="checkbox" id="help-radius">
+      <label for="help-radius">
+	Radius (nm)
+      </label>
+      <input id="radius" value="100.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
+      <aside> Radius of the spheres in the solvent. </aside>
+      <input type="checkbox" id="help-set">
+      <label for="help-set">
+	Spin Echo Tune (nm Å⁻²)
+      </label>
+      <input id="tune" value="10.0" inputmode="numeric" pattern="[-+]?\d*(\.?)\d*(e[-+]?\d+)?" required/>
+      <aside> The tuning constant of the spin echo instrument.  This value, times the wavelength squared in Angstroms, gives the spin echo length in nanometers.</aside>
       <div class="spacer">
 	Results
       </div>
       <div id="results">
-	<div class="value">
-	  <label>
-	    Spin Echo Length (nm)
-	  </label>
-	  <div id="spin_echo">
-	    Please enter Values
-	  </div>
+	<label>
+	  Spin Echo Length (nm)
+	</label>
+	<div id="spin_echo">
+	  Please enter Values
 	</div>
-	<div class="value">
-	  <label>
-	    Total Scattering
-	  </label>
-	  <div id="total_scattering">
-	    Please enter Values
-	  </div>
+	<label>
+	  Total Scattering
+	</label>
+	<div id="total_scattering">
+	  Please enter Values
 	</div>
-	<div class="value">
-	  <label>
-	    Polarisation
-	  </label>
-	  <div id="polarisation">
-	    Please enter values
-	  </div>
+	<label>
+	  Polarisation
+	</label>
+	<div id="polarisation">
+	  Please enter values
 	</div>
       </div>
     </div>
-    <hr/>
+</div>
+<hr/>
 
-    <svg id="wplot"></svg>
-    <svg id="splot"></svg>
-  </body>
-  <script type="text/javascript" src="scatter.js">
-  </script>
+<svg id="wplot"></svg>
+<svg id="splot"></svg>
+</body>
+<script type="text/javascript" src="scatter.js">
+</script>
 </html>
