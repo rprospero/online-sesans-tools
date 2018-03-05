@@ -45,10 +45,6 @@ input:checked + label + input + aside {
     max-height: 7.5em;
     transition: 900ms ease all;
 }
-input:checked ~ label:after {
-    transform: rotate(45deg);
-    transition: 900ms ease all
-}
 
 svg {
     width: 96vw;
