@@ -158,7 +158,9 @@ function update_values(){
         .text(total_scattering);
     d3.select("#results")
         .select("#polarisation")
-        .text(function(x) {return Math.exp(-total_scattering(x));});
+        .text(function(x) {
+	    var G = sphere_form_factor(10*x.tune*x.wavelength*x.wavelength, x.radius);
+	    return Math.exp((G-1)*total_scattering(x));});
 
     var value = d3.select("#results").data()[0];
     var wave = value.wavelength;
